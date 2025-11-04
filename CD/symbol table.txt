@@ -1,0 +1,125 @@
+#include <stdio.h>
+#include <string.h>
+
+#define SIZE 20
+
+struct Symbol {
+    char name[20];
+    char type[10];
+    int addr;
+};
+
+struct Symbol table[SIZE];
+int n = 0;
+
+void insert() {
+    if (n >= SIZE) {
+        printf("Symbol Table Full!\n");
+        return;
+    }
+    printf("Enter name, type, address: ");
+    scanf("%s %s %d", table[n].name, table[n].type, &table[n].addr);
+    n++;
+    printf("Symbol inserted.\n");
+}
+
+void display() {
+    int i;
+    if (n == 0) {
+        printf("Symbol Table Empty!\n");
+        return;
+    }
+    printf("\nName\tType\tAddress\n");
+    for (i = 0; i < n; i++)
+        printf("%s\t%s\t%d\n", table[i].name, table[i].type, table[i].addr);
+}
+
+void delete() {
+    char name[20];
+    int i, j, found = 0;
+    if (n == 0) {
+        printf("Symbol Table Empty!\n");
+        return;
+    }
+    printf("Enter name to delete: ");
+    scanf("%s", name);
+    for (i = 0; i < n; i++) {
+        if (strcmp(table[i].name, name) == 0) {
+            for (j = i; j < n - 1; j++)
+                table[j] = table[j + 1];
+            n--;
+            found = 1;
+            printf("Symbol deleted.\n");
+            break;
+        }
+    }
+    if (!found)
+        printf("Symbol not found!\n");
+}
+
+int main() {
+    int ch;
+    while (1) {
+        printf("\n1. Insert\n2. Delete\n3. Display\n4. Exit\nEnter choice: ");
+        scanf("%d", &ch);
+        switch (ch) {
+            case 1: insert(); break;
+            case 2: delete(); break;
+            case 3: display(); break;
+            case 4: return 0;
+            default: printf("Invalid choice!\n");
+        }
+    }
+}
+
+
+
+
+1. Insert
+2. Delete
+3. Display
+4. Exit
+Enter choice: 1
+Enter name, type, address: x int 100
+Symbol inserted.
+
+1. Insert
+2. Delete
+3. Display
+4. Exit
+Enter choice: 1
+Enter name, type, address: y float 104
+Symbol inserted.
+
+1. Insert
+2. Delete
+3. Display
+4. Exit
+Enter choice: 3
+
+Name    Type    Address
+x       int     100
+y       float   104
+
+1. Insert
+2. Delete
+3. Display
+4. Exit
+Enter choice: 2
+Enter name to delete: x
+Symbol deleted.
+
+1. Insert
+2. Delete
+3. Display
+4. Exit
+Enter choice: 3
+
+Name    Type    Address
+y       float   104
+
+1. Insert
+2. Delete
+3. Display
+4. Exit
+Enter choice: 4

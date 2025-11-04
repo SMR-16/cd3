@@ -1,0 +1,5 @@
+sudo apt-get install flex bison gcc
+yacc -d yacc.y      # Generates y.tab.c and y.tab.h
+lex lex.l           # Generates lex.yy.c
+gcc lex.yy.c y.tab.c -o parser -ll -ly   # Compile and link
+./parser
